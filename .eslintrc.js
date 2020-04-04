@@ -17,7 +17,12 @@ module.exports = {
     'no-mixed-spaces-and-tabs': 0,
     'indent': ["off", "tab"],
     'no-trailing-spaces': 0,
-	'keyword-spacing' : 0
+	'keyword-spacing' : 0,
+	'no-multiple-empty-lines' : 0,
+	'spaced-comment' : 0,
+	'space-before-function-paren' : 0,
+	'key-spacing' : 0,
+	'space-before-blocks' : 0
 	
   }
 }
