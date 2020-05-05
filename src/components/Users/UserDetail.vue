@@ -62,7 +62,7 @@
 			    	<template slot-scope='scope'>
 			    		 <el-button type="primary" round @click="userEdit(scope)"  size="mini">编辑</el-button>
       				     <el-button type="warning" round  size="mini" @click='deleteUser(scope.row)'>删除</el-button>
-      				      <el-button type="info" round size="mini">分配角色</el-button>
+      				      <el-button type="info" round size="mini" @click='putAllotRoleDialog(scope.row)'>分配角色</el-button>
 			    	</template>
 			    </el-table-column>
 			  </el-table>
@@ -101,7 +101,7 @@
 				  </el-form-item>
 			  </el-form>
 			  <span slot="footer" class="dialog-footer">
-			    <el-button @click="handleClose">取 消</el-button>
+			    <el-button @click="addUserDialog = false">取 消</el-button>
 			    <el-button type="primary" @click="addUser">确 定</el-button>
 			  </span>
 			</el-dialog>
@@ -131,6 +131,33 @@
 			    <el-button type="primary" @click="editUser">确 定</el-button>
 			  </span>
 			</el-dialog>
+			<!--
+            	作者：offline
+            	时间：2020-04-10
+            	描述：为用户添加角色对话框
+            -->
+            <el-dialog
+			  title="分配角色"
+			  :visible.sync="userAllotRoleDialog"
+			  width="50%">
+			  <el-form ref="userAllotRoleRef" :model="userAllotRole" label-width="80px">
+			  		<el-form-item label="用户名称">
+					    <el-input v-model="userAllotRole.username" disabled='disabled'></el-input>
+					  </el-form-item>
+					 <el-form-item label="当前角色">
+					    <el-input v-model="userAllotRole.role_name" disabled='disabled'></el-input>
+					 </el-form-item>
+					<el-form-item label="新角色">
+					    <el-select v-model="userAllotRole.newRole" placeholder="请选择角色">
+					      <el-option v-for='item in roleList' :label="item.roleName" :value="item.id" :key='item.id'></el-option>
+					    </el-select>
+				  </el-form-item>
+			  </el-form>
+			  <span slot="footer" class="dialog-footer">
+			    <el-button @click="userAllotRoleDialog = false">取 消</el-button>
+			    <el-button type="primary" @click="saveUserRole">确 定</el-button>
+			  </span>
+			</el-dialog>
 	</div>
 </template>
 
@@ -153,6 +180,13 @@
 				totalpage:0,
 				addUserDialog:false,
 				editUserDialog:false,
+				userAllotRoleDialog:false,
+				userAllotRole:{
+					username:'',
+					role_name:'',
+					newRole:''
+				},
+				roleList:[],
 				UserNature: {
 					username:'',
 					password:'',
@@ -287,6 +321,21 @@
 						this.$message.success('修改用户成功!')
 					}
 				})
+			},
+			async putAllotRoleDialog(props){
+				 const { data : dt } = await this.$http.get('roles')
+				 if(dt.meta.status !== 200) return this.$message.error('获取角色列表失败!')
+				 this.roleList = dt.data
+				 this.userAllotRole = props
+				 this.userAllotRoleDialog = true
+			},
+			async saveUserRole(){
+				console.log(this.userAllotRole)
+				const { data : dt } = await this.$http.put(`users/${this.userAllotRole.id}/role`, { rid : this.userAllotRole.newRole })
+				if(dt.meta.status !== 200) return this.$message.error('分配角色失败!')
+				this.getUserList()
+				this.userAllotRoleDialog = false
+				this.$message.success('分配角色成功！')
 			}
 		}
 	}

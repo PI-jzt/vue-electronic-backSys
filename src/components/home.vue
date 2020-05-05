@@ -81,6 +81,7 @@
 				 const { data: dt } = await this.$http.get('menus')
 				if (dt.meta.status !== 200) return this.$message.error('获取左侧菜单错误!')
 				this.NaigationDate = dt.data
+				console.log(this.NaigationDate)
 			},
 			memuTriiger(){
 				this.isunfold = !this.isunfold	
@@ -92,7 +93,6 @@
 		},
 		created () {
 			const memuIndex = window.sessionStorage.getItem('memuActiveIndex')
-			console.log(memuIndex)
 			this.memuActive = memuIndex
 			this.getNaigationList()
 		}

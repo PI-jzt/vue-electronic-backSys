@@ -2,5 +2,14 @@ html,body,#app{
 	margin: 0;
 	padding: 0;
 	height: 100%;
-	
+}
+.el-cascader-panel{ height: 200px }
+.el-card{
+	margin-top: 20px;
+}
+.ql-container{
+	height: 250px !important;
+}
+main{
+	max-width: 100%;
 }
