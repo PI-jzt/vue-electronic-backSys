@@ -3,19 +3,19 @@ import './assets/fonts/iconfont.css'
 
 import Vue from 'vue'
 import App from './App.vue'
-import router from './router'
-/*import './plugins/element.js'*/
+import store from './store/index.js'
+
+import router from './router/index.js'
+import './plugins/element.js'
 
 //可下拉树型表格
 import ZkTable from 'vue-table-with-tree-grid'
 
 //富文本编辑器
-
 import VueQuillEditor from 'vue-quill-editor'
-
-/*import 'quill/dist/quill.core.css' // import styles
+import 'quill/dist/quill.core.css' // import styles
 import 'quill/dist/quill.snow.css' // for snow theme
-import 'quill/dist/quill.bubble.css' // for bubble theme*/
+import 'quill/dist/quill.bubble.css' // for bubble theme
 
 
 //配置全局css样式及icon图标
@@ -23,8 +23,6 @@ import 'quill/dist/quill.bubble.css' // for bubble theme*/
 
 //配置axios
 import axios from 'axios'
-
-import store from './store'
 axios.defaults.baseURL = 'http://127.0.0.1:8888/api/private/v1/'
 //处理请求数据时绑定上token值
 axios.interceptors.request.use(config => {
@@ -38,7 +36,6 @@ Vue.prototype.$http = axios
 
 
 Vue.component('tree-table', ZkTable)
-
 
 Vue.use(VueQuillEditor)
 
@@ -60,7 +57,7 @@ Vue.filter('formatDate', function(val){
 		return year + '-' + month + '-' + day + '  ' + hour + ':' + minutee + ':' + seconds
 })
 new Vue({
-    router,
-    store,
-    render: h => h(App)
+  router,
+  store,
+  render: h => h(App)
 }).$mount('#app')

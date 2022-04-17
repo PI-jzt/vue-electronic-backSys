@@ -1,6 +1,7 @@
 /* eslint-disable */
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+/*
 import Login from '../components/login.vue'
 import Home from '../components/home.vue'
 import Welcome from '../components/welcome.vue'
@@ -12,30 +13,29 @@ import sortingParameter from '../components/goods/sorting_parameter.vue'
 import goodsList from '../components/goods/goods_list.vue'
 import goodsAddPage from '../components/goods/goods_add.vue'
 import orders from '../components/order/order.vue'
-import reports from '../components/reports/reports.vue'
-import '../assets/css/global.css'
-import '../assets/fonts/iconfont.css'
-import axios from 'axios'
+import reports from '../components/reports/reports.vue'*/
+const Login = () => import(/* webpackChunkName:"login_home_welcome" */ '../components/login.vue')
+const Home = () => import(/* webpackChunkName:"login_home_welcome" */ '../components/home.vue')
+const Welcome = () => import(/* webpackChunkName:"login_home_welcome" */ '../components/welcome.vue')
+const UserDetail = () => import(/* webpackChunkName:"user_Rights_Roles" */ '../components/Users/UserDetail.vue')
+const Rights = () => import(/* webpackChunkName:"user_Rights_Roles" */ '../components/Power/rights.vue')
+const Roles = () => import(/* webpackChunkName:"user_Rights_Roles" */ '../components/Power/role.vue')
+const goodsClassify = () => import(/* webpackChunkName:"goodsClassify_sortingParameter" */ '../components/goods/goods_classify.vue')
+const sortingParameter = () => import(/* webpackChunkName:"goodsClassify_sortingParameter" */ '../components/goods/sorting_parameter.vue')
+const goodsList = () => import(/* webpackChunkName:"goodsList_goodsAddPage" */ '../components/goods/goods_list.vue')
+const goodsAddPage = () => import(/* webpackChunkName:"goodsList_goodsAddPage" */ '../components/goods/goods_add.vue')
+const orders = () => import(/* webpackChunkName:"orders_reports" */ '../components/order/order.vue')
+const reports = () => import(/* webpackChunkName:"orders_reports" */ '../components/reports/reports.vue')
+const vuexTest01 = () => import(/* webpackChunkName:"orders_reports" */ '../components/vuex_test/test_01.vue')
 
-
-axios.defaults.baseURL='http://127.0.0.1:8888/api/private/v1/'
-//处理请求数据时绑定上token值
-axios.interceptors.request.use(config =>{
-	//为headers 加上授权字段且赋值
-	config.headers.Authorization=window.sessionStorage.getItem('token')
-	return config
-})
-
-
-Vue.prototype.$http=axios
 Vue.use(VueRouter)
 
 const router = new VueRouter({
 	routes:
 	[
-		{path:'/',redirect:'/login'},
+		{path:'/', redirect:'/login'},
 		{path:'/login', component:Login },
-		{path:'/home', component:Home ,redirect:'/welcome', children:[
+		{path:'/home', component:Home , redirect:'/welcome', children:[
 			{path:'/welcome', component:Welcome },
 			{path:'/users', component:UserDetail},
 			{path:'/rights', component:Rights},
@@ -46,7 +46,9 @@ const router = new VueRouter({
 			{path:'/goods/add', component:goodsAddPage},
 			{path:'/orders', component:orders},
 			{path:'/reports', component:reports}
-		]}
+			]
+		},
+		{path:'/vuexTest01', component:vuexTest01}
 	]	
 	
 })

@@ -13,6 +13,7 @@
 
 <script>
 	import echarts from 'echarts'
+	
 	export default {
 		data(){
 			return{
@@ -27,6 +28,7 @@
       		  this.reportList = dt.data
       		  this.reportList.title = { text:'用户来源' }
       		  this.reportList.tooltip = { trigger:'axis', axisPointer:{ type:'cross', label:{ backgroundColor:'#6a7985' } } }
+      		  console.log(1234)
       		 // 指定图表的配置项和数据
 		       /* var option = {
 		            title: {

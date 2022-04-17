@@ -196,9 +196,6 @@
 				this.orderListParams.pagenum = val
 				this.getorderList()
 			},
-			getorderList2(){
-				console.log(1)
-			},
 			resetForm(){
 				this.$refs.provinceCityLinkedRef.resetFields()
 			},

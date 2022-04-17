@@ -101,7 +101,7 @@
 		methods:{
 			//添加商品
 			addGoods(){
-				this.$router.push('/goods/add')
+				this.$router.push('/goods/add').catch(data => {})
 			},
 			//获取商品列表数据
 			async getGoodsList(){
